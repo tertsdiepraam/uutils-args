@@ -84,8 +84,8 @@ pub fn arguments(input: TokenStream) -> TokenStream {
 
             #[allow(unreachable_code)]
             fn next_arg(
-                parser: &mut ::uutils_args::lexopt::Parser
-            ) -> Result<Option<::uutils_args::Argument<Self>>, ::uutils_args::Error> {
+                parser: &mut uutils_args::lexopt::Parser
+            ) -> Result<Option<::uutils_args::Argument<Self>>, ::uutils_args::ErrorKind> {
                 use ::uutils_args::{Value, lexopt, Error, Argument};
 
                 #free

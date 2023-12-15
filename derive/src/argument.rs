@@ -172,7 +172,7 @@ pub fn short_handling(args: &[Argument]) -> (TokenStream, Vec<char>) {
         Ok(Some(Argument::Custom(
             match short {
                 #(#match_arms)*
-                _ => return Err(::uutils_args::Error::UnexpectedOption(short.to_string(), Vec::new())),
+                _ => return Err(::uutils_args::ErrorKind::UnexpectedOption(short.to_string(), Vec::new())),
             }
         )))
     );
@@ -218,7 +218,7 @@ pub fn long_handling(args: &[Argument], help_flags: &Flags) -> TokenStream {
 
     if options.is_empty() {
         return quote!(
-            return Err(::uutils_args::Error::UnexpectedOption(
+            return Err(::uutils_args::ErrorKind::UnexpectedOption(
                 long.to_string(),
                 Vec::new()
             ))
@@ -304,7 +304,7 @@ pub fn free_handling(args: &[Argument]) -> TokenStream {
             if let Some((prefix, value)) = arg.split_once('=') {
                 #(#dd_branches)*
 
-                return Err(::uutils_args::Error::UnexpectedOption(
+                return Err(::uutils_args::ErrorKind::UnexpectedOption(
                     prefix.to_string(),
                     ::uutils_args::internal::filter_suggestions(prefix, &[#(#dd_args),*], "")
                 ));
